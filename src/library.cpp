@@ -36,6 +36,8 @@
 #include "memory.h"
 #include "error.h"
 #include "force.h"
+#include "neighbor.h"
+#include "pair.h"
 #include "info.h"
 #include "fix_external.h"
 
@@ -387,6 +389,8 @@ void *lammps_extract_global(void *ptr, char *name)
   if (strcmp(name,"nmax") == 0) return (void *) &lmp->atom->nmax;
   if (strcmp(name,"ntypes") == 0) return (void *) &lmp->atom->ntypes;
   if (strcmp(name,"ntimestep") == 0) return (void *) &lmp->update->ntimestep;
+  if (strcmp(name,"neighskin") == 0) return (void *) &lmp->neighbor->skin;
+  if (strcmp(name,"paircut") == 0) return (void *) &lmp->force->pair->cutforce;
 
   if (strcmp(name,"units") == 0) return (void *) lmp->update->unit_style;
   if (strcmp(name,"triclinic") == 0) return (void *) &lmp->domain->triclinic;
