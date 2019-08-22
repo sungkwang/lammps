@@ -351,7 +351,6 @@ MEAM::get_Zij2(const lattice_t latt, const double cmin, const double cmax,
         //          call error('can not do 2NN MEAM for dia')
     }
     break;
-
   case CH4: //does not have 2nn structure so it returns 0
   case LIN: //line
   case DIM:
@@ -359,6 +358,12 @@ MEAM::get_Zij2(const lattice_t latt, const double cmin, const double cmax,
     a = 1.0;
     S = 0.0;
     return 0;
+  
+  case TRI: //TRI 
+    Zij2 = 1;
+    a = 2.0*stheta;
+    numscr=2;
+    break;
 
   case TRI: //TRI
     Zij2 = 1;

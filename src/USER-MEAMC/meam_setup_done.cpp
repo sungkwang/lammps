@@ -272,6 +272,21 @@ MEAM::compute_pair_meam(void)
               this->phir[nv2][j] = this->phir[nv2][j] - 0.75 * S11 * phiaa - 0.25 * S22 * phibb;
             }
 
+          } else if (this->lattce_meam[a][b] == DIA3 || this->lattce_meam[a][b] == LIN || 
+                    this->lattce_meam[a][b] == ZIG  || this->lattce_meam[a][b] == TRI) {
+            // To avoid nan values of phir due to rapid decrease of b2nn^n or/and 
+            // argument of phi_meam, i.e. r*arat^n, in some cases (3NN dia with low Cmin value)
+            if (scrn > 0.0) {            
+              b2nn = -Z2*scrn/Z1;
+              for (n = 1; n <= 10; n++) {
+                phi_val = MathSpecial::powint(b2nn,n)*phi_meam(r * MathSpecial::powint(arat, n), a, b);
+                if (!iszero(phi_val)){
+                  this->phir[nv2][j] += phi_val;
+                } else {
+                  break; // necessary to avoid numerical error (nan or infty) due to exponential decay in phi_meam 
+                }
+              }
+            }
           } else {
             this->phir[nv2][j]+= phi_meam_series(scrn, Z1, Z2, a, b, r, arat);
           }
@@ -484,7 +499,6 @@ MEAM::phi_meam(double r, int a, int b)
         b11s = -Z2/Z1*scrn;
         Z2 = get_Zij2_b2nn(this->lattce_meam[a][b], this->Cmin_meam[b][b][a], this->Cmax_meam[b][b][a], scrn2);
         b22s = -Z2/Z1*scrn2;
-
         phiaa = phi_meam(2.0*this->stheta_meam[a][b]*r, a, a);
         phibb = phi_meam(2.0*this->stheta_meam[a][b]*r, b, b);
         phi_m = (2.0*Eu - F1 - F2 + phiaa*b11s + phibb*b22s) / Z12;
@@ -500,7 +514,6 @@ MEAM::phi_meam(double r, int a, int b)
         phiaa = phi_meam(2.0*this->stheta_meam[a][b]*r, a, a);
         phi_m = (3.0*Eu - 2.0*F1 - F2 + phiaa*b11s) / Z12;
       }
-
   } else {
     // potential is computed from Rose function and embedding energy
     phi_m = (2 * Eu - F1 - F2) / Z12;
@@ -673,6 +686,8 @@ MEAM::get_densref(double r, int a, int b, double* rho01, double* rho11, double* 
   rhoa32 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta3_meam[b] * a2);
 
   lat = this->lattce_meam[a][b];
+  
+  Zij = get_Zij(lat);
 
   Zij = get_Zij(lat);
 
@@ -753,7 +768,6 @@ MEAM::get_densref(double r, int a, int b, double* rho01, double* rho11, double* 
       *rho12 = s[0] * rhoa11 * rhoa11;
       *rho22 = s[1] * rhoa21 * rhoa21;
       *rho32 = s[2] * rhoa31 * rhoa31;
-
       get_shpfcn(CH4, 0, 0, s); //C
       *rho11 = s[0] * rhoa12 * rhoa12;
       *rho21 = s[1] * rhoa22 * rhoa22;

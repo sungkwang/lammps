@@ -67,7 +67,7 @@ private:
   // theta = angle between three atoms in line, zigzag, and trimer reference structures
   // stheta_meam = sin(theta/2) in radian used in line, zigzag, and trimer reference structures
   // ctheta_meam = cos(theta/2) in radian used in line, zigzag, and trimer reference structures
-
+  
   double Ec_meam[maxelt][maxelt], re_meam[maxelt][maxelt];
   double A_meam[maxelt], alpha_meam[maxelt][maxelt], rho0_meam[maxelt];
   double delta_meam[maxelt][maxelt];
@@ -110,6 +110,10 @@ public:
 
   int maxneigh;
   double *scrfcn, *dscrfcn, *fcpair;
+  
+  //angle for trimer, zigzag, line reference structures
+  double stheta_meam[maxelt][maxelt];
+  double ctheta_meam[maxelt][maxelt];
 
   //angle for trimer, zigzag, line reference structures
   double stheta_meam[maxelt][maxelt];
@@ -200,11 +204,11 @@ protected:
   static double erose(const double r, const double re, const double alpha, const double Ec, const double repuls, const double attrac, const int form);
 
   static void get_shpfcn(const lattice_t latt, const double sthe, const double cthe, double (&s)[3]);
-
-  static int get_Zij2(const lattice_t latt, const double cmin, const double cmax,
+  
+  static int get_Zij2(const lattice_t latt, const double cmin, const double cmax, 
                       const double sthe, double &a, double &S);
   static int get_Zij2_b2nn(const lattice_t latt, const double cmin, const double cmax, double &S);
-
+  
 protected:
   void meam_checkindex(int, int, int, int*, int*);
   void getscreen(int i, double* scrfcn, double* dscrfcn, double* fcpair, double** x, int numneigh,
