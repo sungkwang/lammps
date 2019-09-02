@@ -573,7 +573,7 @@ MEAM::compute_reference_density(void)
     if (this->nn2_meam[a][a] == 1) {
       Z2 = get_Zij2(this->lattce_meam[a][a], this->Cmin_meam[a][a][a],
                this->Cmax_meam[a][a][a], this->stheta_meam[a][a], arat, scrn);
-      rho0_2nn = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta0_meam[a] * (arat - 1));
+      rho0_2nn = this->rho0_meam[a] * MEAM::fm_exp(-this->beta0_meam[a] * (arat - 1));
       rho0 = rho0 + Z2 * rho0_2nn * scrn;
     }
 
@@ -621,8 +621,8 @@ MEAM::get_tavref(double* t11av, double* t21av, double* t31av, double* t12av, dou
     default:
       a1 = r / this->re_meam[a][a] - 1.0;
       a2 = r / this->re_meam[b][b] - 1.0;
-      rhoa01 = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta0_meam[a] * a1);
-      rhoa02 = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta0_meam[b] * a2);
+      rhoa01 = this->rho0_meam[a] * MEAM::fm_exp(-this->beta0_meam[a] * a1);
+      rhoa02 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta0_meam[b] * a2);
       if (latt == L12) {
         rho01 = 8 * rhoa01 + 4 * rhoa02;
         *t11av = (8 * t11 * rhoa01 + 4 * t12 * rhoa02) / rho01;
@@ -665,14 +665,14 @@ MEAM::get_densref(double r, int a, int b, double* rho01, double* rho11, double* 
   a1 = r / this->re_meam[a][a] - 1.0;
   a2 = r / this->re_meam[b][b] - 1.0;
 
-  rhoa01 = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta0_meam[a] * a1);
-  rhoa11 = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta1_meam[a] * a1);
-  rhoa21 = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta2_meam[a] * a1);
-  rhoa31 = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta3_meam[a] * a1);
-  rhoa02 = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta0_meam[b] * a2);
-  rhoa12 = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta1_meam[b] * a2);
-  rhoa22 = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta2_meam[b] * a2);
-  rhoa32 = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta3_meam[b] * a2);
+  rhoa01 = this->rho0_meam[a] * MEAM::fm_exp(-this->beta0_meam[a] * a1);
+  rhoa11 = this->rho0_meam[a] * MEAM::fm_exp(-this->beta1_meam[a] * a1);
+  rhoa21 = this->rho0_meam[a] * MEAM::fm_exp(-this->beta2_meam[a] * a1);
+  rhoa31 = this->rho0_meam[a] * MEAM::fm_exp(-this->beta3_meam[a] * a1);
+  rhoa02 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta0_meam[b] * a2);
+  rhoa12 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta1_meam[b] * a2);
+  rhoa22 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta2_meam[b] * a2);
+  rhoa32 = this->rho0_meam[b] * MEAM::fm_exp(-this->beta3_meam[b] * a2);
 
   lat = this->lattce_meam[a][b];
 
@@ -816,8 +816,8 @@ MEAM::get_densref(double r, int a, int b, double* rho01, double* rho11, double* 
     a1 = arat * r / this->re_meam[a][a] - 1.0;
     a2 = arat * r / this->re_meam[b][b] - 1.0;
 
-    rhoa01nn = this->rho0_meam[a] * MathSpecial::fm_exp(-this->beta0_meam[a] * a1);
-    rhoa02nn = this->rho0_meam[b] * MathSpecial::fm_exp(-this->beta0_meam[b] * a2);
+    rhoa01nn = this->rho0_meam[a] * MEAM::fm_exp(-this->beta0_meam[a] * a1);
+    rhoa02nn = this->rho0_meam[b] * MEAM::fm_exp(-this->beta0_meam[b] * a2);
 
     if (lat == L12) {
       //     As usual, L12 thinks it's special; we need to be careful computing

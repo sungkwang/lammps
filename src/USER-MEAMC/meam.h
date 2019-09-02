@@ -192,6 +192,7 @@ protected:
     dCikj2 = 4 * rij2 * (rij4 - 3 * rik4 + 2 * rik2 * rjk2 + rjk4 + 2 * rij2 * a) / denom;
   }
 
+  static double fm_exp(const double x);
   double G_gam(const double gamma, const int ibar, int &errorflag) const;
   double dG_gam(const double gamma, const int ibar, double &dG) const;
   static double zbl(const double r, const int z1, const int z2);

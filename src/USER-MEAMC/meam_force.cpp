@@ -99,26 +99,26 @@ MEAM::meam_force(int i, int eflag_either, int eflag_global, int eflag_atom, int 
         invrei = 1.0 / this->re_meam[elti][elti];
         ai = rij * invrei - 1.0;
         ro0i = this->rho0_meam[elti];
-        rhoa0i = ro0i * MathSpecial::fm_exp(-this->beta0_meam[elti] * ai);
+        rhoa0i = ro0i * MEAM::fm_exp(-this->beta0_meam[elti] * ai);
         drhoa0i = -this->beta0_meam[elti] * invrei * rhoa0i;
-        rhoa1i = ro0i * MathSpecial::fm_exp(-this->beta1_meam[elti] * ai);
+        rhoa1i = ro0i * MEAM::fm_exp(-this->beta1_meam[elti] * ai);
         drhoa1i = -this->beta1_meam[elti] * invrei * rhoa1i;
-        rhoa2i = ro0i * MathSpecial::fm_exp(-this->beta2_meam[elti] * ai);
+        rhoa2i = ro0i * MEAM::fm_exp(-this->beta2_meam[elti] * ai);
         drhoa2i = -this->beta2_meam[elti] * invrei * rhoa2i;
-        rhoa3i = ro0i * MathSpecial::fm_exp(-this->beta3_meam[elti] * ai);
+        rhoa3i = ro0i * MEAM::fm_exp(-this->beta3_meam[elti] * ai);
         drhoa3i = -this->beta3_meam[elti] * invrei * rhoa3i;
 
         if (elti != eltj) {
           invrej = 1.0 / this->re_meam[eltj][eltj];
           aj = rij * invrej - 1.0;
           ro0j = this->rho0_meam[eltj];
-          rhoa0j = ro0j * MathSpecial::fm_exp(-this->beta0_meam[eltj] * aj);
+          rhoa0j = ro0j * MEAM::fm_exp(-this->beta0_meam[eltj] * aj);
           drhoa0j = -this->beta0_meam[eltj] * invrej * rhoa0j;
-          rhoa1j = ro0j * MathSpecial::fm_exp(-this->beta1_meam[eltj] * aj);
+          rhoa1j = ro0j * MEAM::fm_exp(-this->beta1_meam[eltj] * aj);
           drhoa1j = -this->beta1_meam[eltj] * invrej * rhoa1j;
-          rhoa2j = ro0j * MathSpecial::fm_exp(-this->beta2_meam[eltj] * aj);
+          rhoa2j = ro0j * MEAM::fm_exp(-this->beta2_meam[eltj] * aj);
           drhoa2j = -this->beta2_meam[eltj] * invrej * rhoa2j;
-          rhoa3j = ro0j * MathSpecial::fm_exp(-this->beta3_meam[eltj] * aj);
+          rhoa3j = ro0j * MEAM::fm_exp(-this->beta3_meam[eltj] * aj);
           drhoa3j = -this->beta3_meam[eltj] * invrej * rhoa3j;
         } else {
           rhoa0j = rhoa0i;

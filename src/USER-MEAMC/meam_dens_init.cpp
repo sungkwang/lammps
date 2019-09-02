@@ -287,14 +287,14 @@ MEAM::calc_rho1(int i, int /*ntype*/, int* type, int* fmap, double** x, int numn
         aj = rij / this->re_meam[eltj][eltj] - 1.0;
         ro0i = this->rho0_meam[elti];
         ro0j = this->rho0_meam[eltj];
-        rhoa0j = ro0j * MathSpecial::fm_exp(-this->beta0_meam[eltj] * aj) * sij;
-        rhoa1j = ro0j * MathSpecial::fm_exp(-this->beta1_meam[eltj] * aj) * sij;
-        rhoa2j = ro0j * MathSpecial::fm_exp(-this->beta2_meam[eltj] * aj) * sij;
-        rhoa3j = ro0j * MathSpecial::fm_exp(-this->beta3_meam[eltj] * aj) * sij;
-        rhoa0i = ro0i * MathSpecial::fm_exp(-this->beta0_meam[elti] * ai) * sij;
-        rhoa1i = ro0i * MathSpecial::fm_exp(-this->beta1_meam[elti] * ai) * sij;
-        rhoa2i = ro0i * MathSpecial::fm_exp(-this->beta2_meam[elti] * ai) * sij;
-        rhoa3i = ro0i * MathSpecial::fm_exp(-this->beta3_meam[elti] * ai) * sij;
+        rhoa0j = ro0j * MEAM::fm_exp(-this->beta0_meam[eltj] * aj) * sij;
+        rhoa1j = ro0j * MEAM::fm_exp(-this->beta1_meam[eltj] * aj) * sij;
+        rhoa2j = ro0j * MEAM::fm_exp(-this->beta2_meam[eltj] * aj) * sij;
+        rhoa3j = ro0j * MEAM::fm_exp(-this->beta3_meam[eltj] * aj) * sij;
+        rhoa0i = ro0i * MEAM::fm_exp(-this->beta0_meam[elti] * ai) * sij;
+        rhoa1i = ro0i * MEAM::fm_exp(-this->beta1_meam[elti] * ai) * sij;
+        rhoa2i = ro0i * MEAM::fm_exp(-this->beta2_meam[elti] * ai) * sij;
+        rhoa3i = ro0i * MEAM::fm_exp(-this->beta3_meam[elti] * ai) * sij;
         if (this->ialloy == 1) {
           rhoa1j = rhoa1j * this->t1_meam[eltj];
           rhoa2j = rhoa2j * this->t2_meam[eltj];

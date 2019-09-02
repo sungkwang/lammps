@@ -23,6 +23,18 @@ using namespace LAMMPS_NS;
 
 
 //-----------------------------------------------------------------------------
+// Same as MathSpecial::fm_exp, but with rangechecks
+//
+double MEAM::fm_exp(const double x)
+{
+  double const FM_DOUBLE_LOG2OFE = 1.4426950408889634074;
+  if (x < -1022.0/FM_DOUBLE_LOG2OFE) return 0;
+  if (x > 1023.0/FM_DOUBLE_LOG2OFE) return INFINITY;  
+  return MathSpecial::exp2_x86(FM_DOUBLE_LOG2OFE * x);
+}
+
+
+//-----------------------------------------------------------------------------
 // Compute G(gamma) based on selection flag ibar:
 //   0 => G = sqrt(1+gamma)
 //   1 => G = exp(gamma/2)
@@ -50,9 +62,9 @@ MEAM::G_gam(const double gamma, const int ibar, int& errorflag) const
         return sqrt(1.0 + gamma);
       }
     case 1:
-      return MathSpecial::fm_exp(gamma / 2.0);
+      return MEAM::fm_exp(gamma / 2.0);
     case 3:
-      return 2.0 / (1.0 + MathSpecial::fm_exp(-gamma));
+      return 2.0 / (1.0 + MEAM::fm_exp(-gamma));
     case -5:
       if ((1.0 + gamma) >= 0) {
         return sqrt(1.0 + gamma);
@@ -97,11 +109,11 @@ MEAM::dG_gam(const double gamma, const int ibar, double& dG) const
         return G;
       }
     case 1:
-      G = MathSpecial::fm_exp(gamma / 2.0);
+      G = MEAM::fm_exp(gamma / 2.0);
       dG = G / 2.0;
       return G;
     case 3:
-      G = 2.0 / (1.0 + MathSpecial::fm_exp(-gamma));
+      G = 2.0 / (1.0 + MEAM::fm_exp(-gamma));
       dG = G * (2.0 - G) / 2;
       return G;
     case -5:
