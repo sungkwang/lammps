@@ -468,11 +468,8 @@ MEAM::phi_meam(double r, int a, int b)
     Z2nn = get_Zij2(this->lattce_meam[a][a], this->Cmin_meam[a][a][a],
              this->Cmax_meam[a][a][a], this->stheta_meam[a][b], arat, scrn);
 
-    if (scrn > 0.0) {
-      for (n = 1; n <= 10; n++) {
-        phiaa = phiaa + pow((-Z1nn * scrn / Z1), n) * phi_meam(r * pow(arat, n), a, a);
-      }
-    }
+
+    phiaa += phi_meam_series(scrn, Z1, Z1nn, a, a, r, arat);
     phi_m = Eu / 3.0 - F1 / 4.0 - F2 / 12.0 - phiaa;
 
   } else if (this->lattce_meam[a][b] == CH4) {
@@ -602,6 +599,7 @@ MEAM::get_tavref(double* t11av, double* t21av, double* t31av, double* t12av, dou
     case FCC:
     case BCC:
     case DIA:
+    case DIA3:
     case HCP:
     case B1:
     case DIM:
