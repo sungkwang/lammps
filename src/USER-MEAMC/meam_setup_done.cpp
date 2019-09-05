@@ -526,7 +526,7 @@ MEAM::phi_meam_series(const double scrn, const int Z1, const int Z2, const int a
   double b2nn, phi_val;
   if (scrn > 0.0) {
     b2nn = -Z2*scrn/Z1;
-    for (int n = 0; n <= 10; n++) {
+    for (int n = 1; n <= 10; n++) {
       phi_val = MathSpecial::powint(b2nn,n) * phi_meam(r * MathSpecial::powint(arat, n), a, b);
       if (iszero(phi_val)) {
         // once either term becomes zero at some point, all folliwng will also be zero
