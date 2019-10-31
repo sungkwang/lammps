@@ -469,7 +469,7 @@ MEAM::phi_meam(double r, int a, int b)
              this->Cmax_meam[a][a][a], this->stheta_meam[a][b], arat, scrn);
 
 
-    phiaa += phi_meam_series(scrn, Z1, Z1nn, a, a, r, arat);
+    phiaa += phi_meam_series(scrn, Z1nn, Z2nn, a, a, r, arat);
     phi_m = Eu / 3.0 - F1 / 4.0 - F2 / 12.0 - phiaa;
 
   } else if (this->lattce_meam[a][b] == CH4) {
